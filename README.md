@@ -1,5 +1,5 @@
 # CartPole
-Q-Learning Reinforcement Learning implementation of Cart Pole from gymnasium
+Q-Learning Reinforcement Learning implementation of Cart Pole from gymnasium <br/>
 https://pypi.org/project/gymnasium/ <br/>
 https://gymnasium.farama.org/environments/classic_control/cart_pole/
 
