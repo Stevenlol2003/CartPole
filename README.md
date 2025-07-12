@@ -1,9 +1,7 @@
 # CartPole
-Q-Learning Reinforcement Learning implementation of Cart Pole from gymnasium <br/>
+Q-Learning Performance on the CartPole Environment Under Observation Noise and Reward Variants <br/>
 https://pypi.org/project/gymnasium/ <br/>
 https://gymnasium.farama.org/environments/classic_control/cart_pole/
 
 ### TODO
-1. Adjust hyperparameters
-2. Add more states, currenly q-table is always on state (2, 2, 2, 3)
-3. Try adding noise to movement
+1.
