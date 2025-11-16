@@ -4,16 +4,6 @@ from collections import defaultdict
 import pickle
 import os
 import matplotlib.pyplot as plt
-import csv
-
-# stat logging helper function, saves different reward and noise level combinations as csv
-def save_episode_stats(rewards, mean_angles, var_angles, reward_type, noise_level):
-    filename = f"episode_stats_{reward_type}_noise{noise_level}.csv"
-    with open(filename, 'w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(["Episode", "TotalReward", "MeanPoleAngle", "VariancePoleAngle"])
-        for i in range(len(rewards)):
-            writer.writerow([i + 1, rewards[i], mean_angles[i], var_angles[i]])
 
 # goal is to keep pole upright for as long as possible
 # a reward of +1 is given for every step taken, including the termination step
@@ -72,7 +62,7 @@ noise_levels = [0.0, 0.01, 0.05, 0.1]
 # hyperparameters
 episodes = 10000
 learning_rate = 0.1 # alpha
-discount_factor = 0.999 # gamma
+discount_factor = 0.95 # gamma
 
 # used to track first episode of convergence: 500 total rewards reached for first time
 convergence_episodes = {}
@@ -126,7 +116,7 @@ for reward_type, reward_fn in reward_functions.items():
         all_rewards = []    # records final reward of each episode
         mean_angles = []    # mean pole angle per episode
         var_angles = []     # variance of pole angle per episode
-        converged_at = None # tracks when we reach max reward 500 (499+ here for cosine reward rounding)
+        converged_at = None # tracks when we reach max reward 500 (499+ here for rounding)
 
         # intialize CartPole environment
         # env = gym.make('CartPole-v1', render_mode="human")
@@ -189,8 +179,6 @@ for reward_type, reward_fn in reward_functions.items():
         filename = f"q_table_ep{episodes}_lr{learning_rate}_noise{noise}_{reward_type}.pkl"
         with open(filename, 'wb') as f:
             pickle.dump(dict(q_table), f)
-
-        save_episode_stats(all_rewards, mean_angles, var_angles, reward_type, noise)
 
         # plot reward vs episodes
         plt.plot(range(1, episodes + 1), all_rewards)
